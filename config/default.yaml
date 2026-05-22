@@ -1,0 +1,22 @@
+run_mode: paper                    # paper | shadow | live
+
+paths:
+  data_dir: ./data
+  event_store: ./data/events.sqlite
+  ledger: ./data/ledger.duckdb
+  bars_dir: ./data/bars
+  logs_dir: ./logs
+
+broker:
+  host: 127.0.0.1
+  port: 4002                       # 4002 paper, 4001 live
+  client_id: 1
+  account: ""                      # filled at runtime from secrets
+
+logging:
+  level: INFO
+  format: json                     # json | console
+
+time:
+  display_tz: Australia/Sydney
+  market_tz: America/New_York

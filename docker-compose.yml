@@ -1,0 +1,20 @@
+# IB Gateway runs in Docker so the broker service has a stable local endpoint.
+# Confirm the image tag before first use — IBKR's auth-restart quirk means the
+# container needs `restart: unless-stopped` and a periodic re-auth job (TBD).
+services:
+  ib-gateway:
+    image: ghcr.io/gnzsnz/ib-gateway:stable
+    container_name: stonk-helper-ib-gateway
+    restart: unless-stopped
+    environment:
+      TWS_USERID: ${IBKR_USER}
+      TWS_PASSWORD: ${IBKR_PASSWORD}
+      TRADING_MODE: paper            # paper | live — flip only with explicit intent
+      READ_ONLY_API: "no"
+      TWS_ACCEPT_INCOMING: accept
+      TIME_ZONE: Etc/UTC
+    ports:
+      - "127.0.0.1:4002:4002"        # paper API
+      - "127.0.0.1:4001:4001"        # live API
+    volumes:
+      - ./data/ib-gateway:/home/ibgateway/Jts
