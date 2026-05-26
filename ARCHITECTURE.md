@@ -284,6 +284,8 @@ To resolve before / during implementation:
 - **Backtest realism.** How aggressive a slippage and borrow-cost model is honest given the position sizes involved.
 - **HITL latency.** What's the operator's tolerated response time? Drives the timeout-reject default.
 - **Failure of the Mac mini / VM.** Is there a hot-spare strategy, or is "system down, no new trades" acceptable for a personal portfolio?
+- **Prompt caching for review agents.** ARCHITECTURE.md and CLAUDE.md are re-sent on every review-agent call. Adding `cache_control` headers would cut cost ~90% on repeated pushes to the same PR. Deferred until the agents are proven useful.
+- **Review comment deduplication.** Each push to a PR re-runs all agents and appends new comments. Editing existing comments (search by a marker in the footer, then PATCH) would keep PRs readable. Deferred until the volume warrants it.
 
 ---
 
